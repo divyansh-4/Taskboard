@@ -6,11 +6,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Define the path for the tasks file
+
 TASKS_FILE = 'tasks.json'
 
 def load_tasks():
-    # Create file with default data if it doesn't exist
     if not os.path.exists(TASKS_FILE):
         default_data = {
             "todo": [
@@ -28,7 +27,7 @@ def load_tasks():
 
 def save_tasks(tasks):
     with open(TASKS_FILE, 'w') as f:
-        json.dump(tasks, f, indent=2)  # indent for better readability
+        json.dump(tasks, f, indent=2) 
 
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():

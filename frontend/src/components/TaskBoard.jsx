@@ -14,7 +14,7 @@ const TaskBoard = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
 
-  // Load tasks from backend on component mount
+  
   useEffect(() => {
     const loadInitialTasks = async () => {
       try {
@@ -45,14 +45,14 @@ const TaskBoard = () => {
       });
     } catch (error) {
       console.error("Failed to save tasks:", error);
-      throw error; // Re-throw to handle in calling function if needed
+      throw error; 
     }
   };
 
   const onDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
 
-    // If dropped outside the list or in same position
+    
     if (!destination || 
         (destination.droppableId === source.droppableId && 
          destination.index === source.index)) {
@@ -63,7 +63,7 @@ const TaskBoard = () => {
     const finishColumn = columns[destination.droppableId];
     const task = startColumn.tasks.find(t => t.id === draggableId);
 
-    // Moving within same column
+    
     if (startColumn === finishColumn) {
       const newTasks = [...startColumn.tasks];
       newTasks.splice(source.index, 1);
@@ -75,7 +75,7 @@ const TaskBoard = () => {
       setColumns(newColumns);
       await persistTasks(newColumns);
     } 
-    // Moving to different column
+    
     else {
       const startTasks = [...startColumn.tasks];
       startTasks.splice(source.index, 1);
@@ -114,7 +114,7 @@ const TaskBoard = () => {
     const updatedColumns = { ...columns };
     let columnUpdated = false;
 
-    // Find and update the task in whichever column it exists
+    
     for (const columnId in updatedColumns) {
       const taskIndex = updatedColumns[columnId].tasks.findIndex(t => t.id === updatedTask.id);
       if (taskIndex !== -1) {
